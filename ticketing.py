@@ -43,7 +43,7 @@ bottomLeft2.pack(side=RIGHT)
 Tops.configure(background='black')
 f1.configure(background='black')
 f2.configure(background='black')
-lblTitle=Label(Tops, font=('arial', 40, 'bold'), text="Ferry Ticketing Systems", width=44, justify='center')
+lblTitle=Label(Tops, font=('arial', 40, 'bold'), text="Ferry Ticketing System", width=44, justify='center')
 lblTitle.grid(row=0, column=0)
 #---------------------------------Variables-------------------------------
 varl = StringVar()
@@ -93,4 +93,65 @@ lblCommit.grid(row=3, column=0, sticky=W)
 entCommit = Entry(topLeft2, font=('arial', 20, 'bold'), textvariable = var7, bd=2, width=8)
 entCommit.grid(row=3, column=1, sticky=W)
 #---------------------------------Calculator-------------------------------
+text_Input=StringVar()
+txtDisplay = Entry(bottomLeft2, font=('arial', 10, 'bold'), textvariable=text_Input, bd=8, bg="powder blue", justify='right')
+txtDisplay.grid(columnspan=4)
+
+btn7=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="7", bg="powder blue", command = lambda:btnClick(7)).grid(row=2, column=0)
+btn8=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="8", bg="powder blue", command = lambda: btnClick(8)).grid(row=2, column=1)
+btn9=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="9", bg="powder blue", command = lambda: btnClick(9)).grid(row=2, column=2)
+Addition=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="+", bg="powder blue", command = lambda: btnClick("+")).grid(row=2, column=3)
+#-------------------------------------------------------------------------
+btn4=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="4", bg="powder blue", command = lambda: btnClick(4)).grid(row=3, column=0)
+btn5=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="5", bg="powder blue", command = lambda: btnClick(5)).grid(row=3, column=1)
+btn6=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="6", bg="powder blue", command = lambda: btnClick(6)).grid(row=3, column=2)
+Subtracktion=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="-", bg="powder blue", command = lambda: btnClick("-")).grid(row=3, column=3)
+#-------------------------------------------------------------------------
+btn1=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="1", bg="powder blue", command = lambda: btnClick(1)).grid(row=4, column=0)
+btn2=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="2", bg="powder blue", command = lambda: btnClick(2)).grid(row=4, column=1)
+btn3=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="3", bg="powder blue", command = lambda: btnClick(3)).grid(row=4, column=2)
+Multiply=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="*", bg="powder blue", command = lambda: btnClick("*")).grid(row=4, column=3)
+#-------------------------------------------------------------------------
+btn0=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="0", bg="powder blue", command = lambda: btnClick(0)).grid(row=5, column=0)
+btnClear=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="C", bg="powder blue").grid(row=5, column=1)
+btnEquals=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="=", bg="powder blue").grid(row=5, column=2)
+Division=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="/", bg="powder blue", command = lambda: btnClick("/")).grid(row=5, column=3)
+#------------------------------------------Tax Sub Total-------------------------------
+lblStateTax = Label(bottomLeft1, font=('arial', 16, 'bold'), text="State Tax", bd=16, anchor='w')
+lblStateTax.grid(row=3, column=2)
+txtStateTax = Entry(bottomLeft1, font=('arial', 16, 'bold'), textvariable=Tax, bd=10, insertwidth=4, bg="#ffffff", justify='right')
+txtStateTax.grid(row=3, column=3)
+
+lblSubTotal = Label(bottomLeft1, font=('arial', 16, 'bold'), text="Sub Total", bd=16, anchor='w')
+lblSubTotal.grid(row=4, column=2)
+txtSubTotal = Entry(bottomLeft1, font=('arial', 16, 'bold'), textvariable=SubTotal, bd=10, insertwidth=4, bg="#ffffff", justify='right')
+txtSubTotal.grid(row=4, column=3)
+
+lblTotalCost = Label(bottomLeft1, font=('arial', 16, 'bold'), text="Sub Total", bd=16, anchor='w')
+lblTotalCost.grid(row=5, column=2)
+txtTotalCost = Entry(bottomLeft1, font=('arial', 16, 'bold'), textvariable=Total, bd=10, insertwidth=4, bg="#ffffff", justify='right')
+txtTotalCost.grid(row=5, column=3)
+
+#-------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+6
+
+
+
+
+
+
+
+
 root.mainloop()
