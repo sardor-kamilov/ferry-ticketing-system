@@ -1,157 +1,1302 @@
-from tkinter import*
-from tkinter import Tk, StringVar, ttk
-import random
-import time;
-import datetime
+from datetime import datetime
+global date
+date = datetime.now().strftime("%d/%m/%y")
 
-root = Tk()
-root.geometry("1350x750+0+0")
-root.title("Ferry Ticketing")
-root.configure(background='black')
+#----------------------MAIN MENU---------------------------
 
-Tops = Frame(root, width = 1350, height = 100, relief = 'raise')
-Tops.pack(side=TOP)
+def main_menu():
+    print("*"*30)
+    print("*   FERRY TICKETING SYSTEM   *")
+    print("*         MAIN MENU          *")
+    print("*"*30)
+    print(" P - Purchase Ticket ")
+    print(" V - View Seating Arrangement ")
+    print(" Q - Quit the system\n\n")
+    customer = str(input("Enter Here:- ").upper())
+    if customer == "P":
+        sub_menu()
+    elif customer == "V":
+        arrangement()
+    elif customer == "Q":
+        quit()
+    else:
+        print("-----ERROR-----")
+        return sub_menu()
 
-f1 = Frame(root, width = 900, height = 650, bd = 8, relief = 'raise')
-f1.pack(side=LEFT)
-f2 = Frame(root, width = 440, height = 650, bd = 8, relief = 'raise')
-f2.pack(side=RIGHT)
-
-ft2 = Frame(f2, width = 440, height = 650, bd = 12, relief = 'raise')
-ft2.pack(side=LEFT)
-fb2 = Frame(f2, width = 440, height = 50, bd = 16, relief = 'raise')
-fb2.pack(side=BOTTOM)
-
-f1a = Frame(f1, width = 900, height = 330, bd = 8, relief = 'raise')
-f1a.pack(side=TOP)
-f2a = Frame(f1, width = 900, height = 320, bd = 6, relief = 'raise')
-f2a.pack(side=BOTTOM)
-
-topLeft1 = Frame(f1a, width = 300, height = 200, bd = 16, relief = 'raise')
-topLeft1.pack(side=LEFT)
-topLeft2 = Frame(f1a, width = 300, height = 200, bd = 16, relief = 'raise')
-topLeft2.pack(side=RIGHT)
-topLeft3 = Frame(f1a, width = 300, height = 200, bd = 16, relief = 'raise')
-topLeft3.pack(side=RIGHT)
-#-----------------------------------------------------------------------------
-bottomLeft1 = Frame(f2a, width = 450, height = 450, bd = 14, relief = 'raise')
-bottomLeft1.pack(side=LEFT)
-
-bottomLeft2 = Frame(f2a, width = 450, height = 450, bd = 14, relief = 'raise')
-bottomLeft2.pack(side=RIGHT)
-#-----------------------------------------------------------------------------
-Tops.configure(background='black')
-f1.configure(background='black')
-f2.configure(background='black')
-lblTitle=Label(Tops, font=('arial', 40, 'bold'), text="Ferry Ticketing System", width=44, justify='center')
-lblTitle.grid(row=0, column=0)
-#---------------------------------Variables-------------------------------
-varl = StringVar()
-var2 = StringVar()
-var3 = StringVar()
-var4 = StringVar()
-var5 = StringVar()
-var6 = StringVar()
-var7 = StringVar()
-var8 = StringVar()
-#---------------------------------Create Widget topLeft1-------------------------------
-lblClass = Label(topLeft1, font=('arial', 22, 'bold'), text='Class', bd=8)
-lblClass.grid(row=0, column=0, sticky=W, columnspan = 2)
-chkStandard = Checkbutton(topLeft1, font=('arial', 20, 'bold'), text='Standard', variable = varl, onvalue=1, offvalue=0)
-chkStandard.grid(row=1, column=0, sticky=W)
-chkEconomy = Checkbutton(topLeft1, font=('arial', 20, 'bold'), text='Economy', variable = var2, onvalue=1, offvalue=0)
-chkEconomy.grid(row=2, column=0, sticky=W)
-chkFirstClass = Checkbutton(topLeft1, font=('arial', 20, 'bold'), text='First Class', variable = var3, onvalue=1, offvalue=0)
-chkFirstClass.grid(row=3, column=0, sticky=W)
-#---------------------------------Create Widget topLeft2-------------------------------
-lblSelect = Label(topLeft3, font=('arial', 20, 'bold'), text='Destination Selector', bd=8)
-lblSelect.grid(row=0, column=0, sticky=W)
-lblDestination = Label(topLeft3, font=('arial', 20, 'bold'), text='Destination', bd=2)
-lblDestination.grid(row=1, column=0, sticky=W)
-cbodDestination=ttk.Combobox(topLeft3, textvariable = var4, state='readonly', font=('arial', 16, 'bold'), width=12)
-cbodDestination['value']=('', 'Kuala Lumpur', 'Penang', 'LangKawi', 'Singapore', 'Bukit Jalil')
-cbodDestination.current(0)
-cbodDestination.grid(row=1, column=1)
-
-chkAdult = Checkbutton(topLeft3, font=('arial', 20, 'bold'), text='Adult', variable = var4, onvalue=1, offvalue=0)
-chkAdult.grid(row=2, column=0, sticky=W)
-chkChild = Checkbutton(topLeft3, font=('arial', 20, 'bold'), text='Child', variable = var5, onvalue=1, offvalue=0)
-chkChild.grid(row=3, column=0, sticky=W)
-#---------------------------------Ticket-------------------------------
-lblClass = Label(topLeft2, font=('arial', 22, 'bold'), text='Ticket Type', bd=8)
-lblClass.grid(row=0, column=0, sticky=W)
-chkSingle = Checkbutton(topLeft2, font=('arial', 20, 'bold'), text='Single', variable = var6, onvalue=1, offvalue=0)
-chkSingle.grid(row=1, column=0, sticky=W)
-entSingle = Entry(topLeft2, font=('arial', 20, 'bold'), textvariable = var5, bd=2, width=8)
-entSingle.grid(row=1, column=1, sticky=W)
-chkReturn = Checkbutton(topLeft2, font=('arial', 20, 'bold'), text='Return', variable = var7, onvalue=1, offvalue=0)
-chkReturn.grid(row=2, column=0, sticky=W)
-entReturn = Entry(topLeft2, font=('arial', 20, 'bold'), textvariable = var6, bd=2, width=8)
-entReturn.grid(row=2, column=1, sticky=W)
-lblCommit = Label(topLeft2, font=('arial', 22, 'bold'), text='Comment', bd=8)
-lblCommit.grid(row=3, column=0, sticky=W)
-entCommit = Entry(topLeft2, font=('arial', 20, 'bold'), textvariable = var7, bd=2, width=8)
-entCommit.grid(row=3, column=1, sticky=W)
-#---------------------------------Calculator-------------------------------
-text_Input=StringVar()
-txtDisplay = Entry(bottomLeft2, font=('arial', 10, 'bold'), textvariable=text_Input, bd=8, bg="powder blue", justify='right')
-txtDisplay.grid(columnspan=4)
-
-btn7=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="7", bg="powder blue", command = lambda:btnClick(7)).grid(row=2, column=0)
-btn8=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="8", bg="powder blue", command = lambda: btnClick(8)).grid(row=2, column=1)
-btn9=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="9", bg="powder blue", command = lambda: btnClick(9)).grid(row=2, column=2)
-Addition=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="+", bg="powder blue", command = lambda: btnClick("+")).grid(row=2, column=3)
-#-------------------------------------------------------------------------
-btn4=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="4", bg="powder blue", command = lambda: btnClick(4)).grid(row=3, column=0)
-btn5=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="5", bg="powder blue", command = lambda: btnClick(5)).grid(row=3, column=1)
-btn6=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="6", bg="powder blue", command = lambda: btnClick(6)).grid(row=3, column=2)
-Subtracktion=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="-", bg="powder blue", command = lambda: btnClick("-")).grid(row=3, column=3)
-#-------------------------------------------------------------------------
-btn1=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="1", bg="powder blue", command = lambda: btnClick(1)).grid(row=4, column=0)
-btn2=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="2", bg="powder blue", command = lambda: btnClick(2)).grid(row=4, column=1)
-btn3=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="3", bg="powder blue", command = lambda: btnClick(3)).grid(row=4, column=2)
-Multiply=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="*", bg="powder blue", command = lambda: btnClick("*")).grid(row=4, column=3)
-#-------------------------------------------------------------------------
-btn0=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="0", bg="powder blue", command = lambda: btnClick(0)).grid(row=5, column=0)
-btnClear=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="C", bg="powder blue").grid(row=5, column=1)
-btnEquals=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="=", bg="powder blue").grid(row=5, column=2)
-Division=Button(bottomLeft2, padx=8, pady=8, bd=8, fg="black", font=('arial', 10, 'bold'), text="/", bg="powder blue", command = lambda: btnClick("/")).grid(row=5, column=3)
-#------------------------------------------Tax Sub Total-------------------------------
-lblStateTax = Label(bottomLeft1, font=('arial', 16, 'bold'), text="State Tax", bd=16, anchor='w')
-lblStateTax.grid(row=3, column=2)
-txtStateTax = Entry(bottomLeft1, font=('arial', 16, 'bold'), textvariable=Tax, bd=10, insertwidth=4, bg="#ffffff", justify='right')
-txtStateTax.grid(row=3, column=3)
-
-lblSubTotal = Label(bottomLeft1, font=('arial', 16, 'bold'), text="Sub Total", bd=16, anchor='w')
-lblSubTotal.grid(row=4, column=2)
-txtSubTotal = Entry(bottomLeft1, font=('arial', 16, 'bold'), textvariable=SubTotal, bd=10, insertwidth=4, bg="#ffffff", justify='right')
-txtSubTotal.grid(row=4, column=3)
-
-lblTotalCost = Label(bottomLeft1, font=('arial', 16, 'bold'), text="Sub Total", bd=16, anchor='w')
-lblTotalCost.grid(row=5, column=2)
-txtTotalCost = Entry(bottomLeft1, font=('arial', 16, 'bold'), textvariable=Total, bd=10, insertwidth=4, bg="#ffffff", justify='right')
-txtTotalCost.grid(row=5, column=3)
-
-#-------------------------------------------------------------------------
+#----------------------SUB MENU---------------------------
+def sub_menu():
+    destination()
+    ch1 = int(input("Choose Destination:- "))
+    if ch1 == 1:
+        print("-"*30)
+        print("B – to purchase ticket for Business class")
+        print("E – to purchase ticket for Economy class")
+        print("M – to return to Main Menu")
+        ch2 = str(input("Enter Here:- ").upper())
+        if ch2 == "B":
+            business2lang()
+        elif ch2 == "E":
+            economy2lang()
+        elif ch2 == "M":
+            main_menu()
+        else:
+            print("-----ERROR-----")
+            return sub_menu()
+    elif ch1 == 2:
+        print("-"*30)
+        print("B – to purchase ticket for Business class")
+        print("E – to purchase ticket for Economy class")
+        print("M – to return to Main Menu")
+        ch2 = str(input("Enter Here:- ").upper())
+        if ch2 == "B":
+            business2penang()
+        elif ch2 == "E":
+            economy2penang()
+        elif ch2 == "M":
+            main_menu()
+        else:
+            print("-----ERROR-----")
+            return sub_menu()
+    else:
+        print("-----ERROR-----")
+        return sub_menu()
 
 
+#----------------------BUSINESS CLASS 2 LANGKAWI---------------------------
+def business2lang():
+    global trip
+    global trip_seat
+    global trip_class
+    global trip_ferry
+    print("-"*30)
+    des_time2lang()
+    chse = int(input("Choose:- "))
+    if chse == 1:
+        print("-"*30)
+        ferryID_101_b()
+        if 0 in ferry_101_b:
+            chse_1 = str(input("Buy Ticket? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                ferry_101_b[9] = 1
+                trip = "PENANG---->LANGKAWI"
+                trip_class = "Business"
+                trip_seat = "B10"
+                trip_ferry = "101 | TIME: 10:00AM"
+                user()
+            elif chse_1 == "NO":
+                business2lang()
+            else:
+                print("-----ERROR-----")
+                return business2lang()
+        elif 0 not in ferry_101_b:
+            print("Sorry la there is no space available Next trip after 3 hour")
+            chse_1 = str(input("You can choose economy YES/NO:- "))
+            if chse_1 == "YES":
+                economy2lang()
+            elif chse_1 == "NO":
+                business2lang()
+            else:
+                print("-----ERROR-----")
+                return business2lang()
+        else:
+            print("-----ERROR-----")
+            return business2lang()
+    elif chse == 2:
+        print("-"*30)
+        ferryID_102_b()
+        if 0 in ferry_102_b:
+            chse_1 = str(input("Buy Ticket? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                ferry_102_b[7] = 1
+                trip = "PENANG---->LANGKAWI"
+                trip_class = "Business"
+                trip_seat = "B08"
+                trip_ferry = "102 | TIME: 01:00PM"
+                user()
+            elif chse_1 == "NO":
+                business2lang()
+            else:
+                print("-----ERROR-----")
+                return business2lang()
+        elif 0 not in ferry_102_b:
+            print("Sorry la there is no space available Next trip after 3 hour")
+            chse_1 = str(input("You can choose economy YES/NO:- ").upper())
+            if chse_1 == "YES":
+                economy2lang()
+            elif chse_1 == "NO":
+                business2lang()
+            else:
+                print("-----ERROR-----")
+                return business2lang()
+        else:
+            print("-----ERROR-----")
+            return business2lang()
+    elif chse == 3:
+        print("-"*30)
+        ferryID_103_b()
+        if 0 in ferry_103_b:
+            chse_1 = str(input("Buy Ticket? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                ferry_103_b[9] = 1
+                trip = "PENANG---->LANGKAWI"
+                trip_class = "Business"
+                trip_seat = "B10"
+                trip_ferry = "103 | TIME: 04:00PM"
+                user()
+            elif chse_1 == "NO":
+                business2lang()
+            else:
+                print("-----ERROR-----")
+                return business2lang()
+        elif 0 not in ferry_103_b:
+            print("Sorry la there is no space available Next trip after 3 hour")
+            chse_1 = str(input("You can choose economy YES/NO:- ").upper())
+            if chse_1 == "YES":
+                economy2lang()
+            elif chse_1 == "NO":
+                business2lang()
+            else:
+                print("-----ERROR-----")
+                return business2lang()
+        else:
+            print("-----ERROR-----")
+            return business2lang()
+    elif chse == 4:
+        print("-"*30)
+        ferryID_104_b()
+        if 0 in ferry_104_b:
+            chse_1 = str(input("Buy Ticket? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                ferry_104_b[1] = 1
+                trip = "PENANG---->LANGKAWI"
+                trip_class = "Business"
+                trip_seat = "B02"
+                trip_ferry = "104 | TIME: 07:00PM"
+                user()
+            elif chse_1 == "NO":
+                business2lang()
+            else:
+                print("-----ERROR-----")
+                return business2lang()
+        elif 0 not in ferry_104_b:
+            print("Sorry la there is no space available Next trip after 3 hour")
+            chse_1 = str(input("You can choose economy YES/NO:- ").upper())
+            if chse_1 == "YES":
+                economy2lang()
+            elif chse_1 == "NO":
+                business2lang()
+            else:
+                print("-----ERROR-----")
+                return business2lang()
+        else:
+            print("-----ERROR-----")
+            return main_menu()
+    elif chse == 5:
+        main_menu()
+    else:
+        print("-----ERROR-----")
+        return business2lang()
 
+#----------------------ECONOMY CLASS 2 LANGKAWI--------------------------
+def economy2lang():
+    global trip
+    global trip_seat
+    global trip_class
+    global trip_ferry
+    print("-"*30)
+    des_time2lang()
+    chse = int(input("Choose:- "))
+    if chse == 1:
+        print("-"*30)
+        ferryID_101_e()
+        if 0 in ferry_101_e:
+            chse_1 = str(input("Buy Ticket? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                ferry_101_e[31] = 1
+                trip = "PENANG---->LANGKAWI"
+                trip_class = "Economy"
+                trip_seat = "E32"
+                trip_ferry = "101 | TIME: 10:00AM"
+                user()
+            elif chse_1 == "NO":
+                economy2lang()
+            else:
+                print("-----ERROR-----")
+                return economy2lang()
+        elif 0 not in ferry_101_e:
+            print("Sorry la there is no space available Next trip after 3 hour")
+            chse_1 = str(input("Change Time? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                economy2lang()
+            elif chse_1 == "NO":
+                sub_menu()
+            else:
+                print("-----ERROR-----")
+                return economy2lang()
+        else:
+            print("-----ERROR-----")
+            return economy2lang()
+    elif chse == 2:
+        print("-"*30)
+        ferryID_102_e()
+        if 0 in ferry_102_e:
+            chse_1 = str(input("Buy Ticket? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                ferry_102_e[32] = 1
+                trip = "PENANG---->LANGKAWI"
+                trip_class = "Economy"
+                trip_seat = "E33"
+                trip_ferry = "102 | TIME: 01:00PM"
+                user()
+            elif chse_1 == "NO":
+                economy2lang()
+            else:
+                print("-----ERROR-----")
+                return economy2lang()
+        elif 0 not in ferry_102_e:
+            print("Sorry la there is no space available Next trip after 3 hour")
+            chse_1 = str(input("Change Time? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                economy2lang()
+            elif chse_1 == "NO":
+                sub_menu()
+            else:
+                print("-----ERROR-----")
+                return economy2lang()
+        else:
+            print("-----ERROR-----")
+            return economy2lang()
+    elif chse == 3:
+        print("-"*30)
+        ferryID_103_e()
+        if 0 in ferry_103_e:
+            chse_1 = str(input("Buy Ticket? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                trip = "PENANG---->LANGKAWI"
+                trip_class = "Economy"
+                trip_seat = "E40"
+                trip_ferry = "103 | TIME: 04:00PM"
+                user()
+            elif chse_1 == "NO":
+                economy2lang()
+            else:
+                print("-----ERROR-----")
+                return economy2lang()
+        elif 0 not in ferry_103_e:
+            print("Sorry la there is no space available Next trip after 3 hour")
+            chse_1 = str(input("Change Time? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                economy2lang()
+            elif chse_1 == "NO":
+                sub_menu()
+            else:
+                print("-----ERROR-----")
+                return economy2lang()
+        else:
+            print("-----ERROR-----")
+            return economy2lang()
+    elif chse == 4:
+        print("-"*30)
+        ferryID_104_e()
+        if 0 in ferry_104_e:
+            chse_1 = str(input("Buy Ticket? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                ferry_104_e[38] = 1
+                trip = "PENANG---->LANGKAWI"
+                trip_class = "Economy"
+                trip_seat = "E39"
+                trip_ferry = "104 | TIME: 07:00PM"
+                user()
+            elif chse_1 == "NO":
+                economy2lang()
+            else:
+                print("-----ERROR-----")
+                return economy2lang()
+        elif 0 not in ferry_104_e:
+            print("Sorry la there is no space available Next trip after 3 hour")
+            chse_1 = str(input("Change Time? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                economy2lang()
+            elif chse_1 == "NO":
+                sub_menu()
+            else:
+                print("-----ERROR-----")
+                return economy2lang()
+        else:
+            print("-----ERROR-----")
+            return economy2lang()
+    elif chse == 5:
+        main_menu()
+    else:
+        print("-----ERROR-----")
+        return business2lang()
 
+#----------------------BUSINESS CLASS 2 PENANG---------------------------
 
+def business2penang():
+    global trip
+    global trip_seat
+    global trip_class
+    global trip_ferry
+    print("-"*30)
+    des_time2penang()
+    chse = int(input("Choose:- "))
+    if chse == 1:
+        print("-"*30)
+        ferryID_201_b()
+        if 0 in ferry_201_b:
+            chse_1 = str(input("Buy Ticket? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                ferry_201_b[1] = 1
+                trip = "LANGKAWI---->PENANG"
+                trip_class = "Business"
+                trip_seat = "B02"
+                trip_ferry = "201 | TIME: 11:00AM"
+                user()
+            elif chse_1 == "NO":
+                business2penang()
+            else:
+                print("-----ERROR-----")
+                return business2penang()
+        elif 0 not in ferry_201_b:
+            print("Sorry la there is no space available Next trip after 3 hour")
+            chse_1 = str(input("You can choose economy YES/NO:- ").upper())
+            if chse_1 == "YES":
+                economy()
+            elif chse_1 == "NO":
+                business2penang()
+            else:
+                print("-----ERROR-----")
+                return business2penang()
+        else:
+            print("-----ERROR-----")
+            return business2penang()
+    elif chse == 2:
+        print("-"*30)
+        ferryID_202_b()
+        if 0 in ferry_202_b:
+            chse_1 = str(input("Buy Ticket? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                ferry_202_b[6] = 1
+                trip = "LANGKAWI---->PENANG"
+                trip_class = "Business"
+                trip_seat = "B07"
+                trip_ferry = "202 | TIME: 02:00PM"
+                user()
+            elif chse_1 == "NO":
+                business2penang()
+            else:
+                print("-----ERROR-----")
+                return business2penang()
+        elif 0 not in ferry_202_b:
+            print("Sorry la there is no space available Next trip after 3 hour")
+            chse_1 = str(input("You can choose economy YES/NO:- ").upper())
+            if chse_1 == "YES":
+                economy()
+            elif chse_1 == "NO":
+                business2penang()
+            else:
+                print("-----ERROR-----")
+                return business2penang()
+        else:
+            print("-----ERROR-----")
+            return business2penang()
+    elif chse == 3:
+        print("-"*30)
+        ferryID_203_b()
+        if 0 in ferry_203_b:
+            chse_1 = str(input("Buy Ticket? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                ferry_203_b[4] = 1
+                trip = "LANGKAWI---->PENANG"
+                trip_class = "Business"
+                trip_seat = "B05"
+                trip_ferry = "203 | TIME: 05:00PM"
+                user()
+            elif chse_1 == "NO":
+                business2penang()
+            else:
+                print("-----ERROR-----")
+                return business2penang()
+        elif 0 not in ferry_203_b:
+            print("Sorry la there is no space available Next trip after 3 hour")
+            chse_1 = str(input("You can choose economy YES/NO:- ").upper())
+            if chse_1 == "YES":
+                economy()
+            elif chse_1 == "NO":
+                business2penang()
+            else:
+                print("-----ERROR-----")
+                return business2penang()
+        else:
+            print("-----ERROR-----")
+            return business2penang()
+    elif chse == 4:
+        print("-"*30)
+        ferryID_204_b()
+        if 0 in ferry_204_b:
+            chse_1 = str(input("Buy Ticket? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                ferry_204_b[5] = 1
+                trip = "LANGKAWI---->PENANG"
+                trip_class = "Business"
+                trip_seat = "B06"
+                trip_ferry = "204 | TIME: 08:00PM"
+                user()
+            elif chse_1 == "NO":
+                business2penang()
+            else:
+                print("-----ERROR-----")
+                return business2penang()
+        elif 0 not in ferry_204_b:
+            print("Sorry la there is no space available Next trip after 3 hour")
+            chse_1 = str(input("You can choose economy YES/NO:- ").upper())
+            if chse_1 == "YES":
+                economy()
+            elif chse_1 == "NO":
+                business2penang()
+            else:
+                print("-----ERROR-----")
+                return business2penang()
+        else:
+            print("-----ERROR-----")
+            return main_menu()
+    elif chse == 5:
+        main_menu()
+    else:
+        print("-----ERROR-----")
+        return business2penang()
 
+#----------------------ECONOMY CLASS 2 PENANG--------------------------
+def economy2penang():
+    global trip
+    global trip_seat
+    global trip_class
+    global trip_ferry
+    print("-"*30)
+    des_time2penang()
+    chse = int(input("Choose:- "))
+    if chse == 1:
+        print("-"*30)
+        ferryID_201_e()
+        if 0 in ferry_201_e:
+            chse_1 = str(input("Buy Ticket? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                ferry_201_e[11] = 1
+                trip = "LANGKAWI---->PENANG"
+                trip_class = "Economy"
+                trip_seat = "E12"
+                trip_ferry = "201 | TIME: 11:00AM"
+                user()
+            elif chse_1 == "NO":
+                economy2penang()
+            else:
+                print("-----ERROR-----")
+                return business2penang()
+        elif 0 not in ferry_201_e:
+            print("Sorry la there is no space available Next trip after 3 hour")
+            chse_1 = str(input("Change Time? YES/NO:- "))
+            if chse_1 == "yes":
+                des_time2penang()
+            elif chse_1 == "no":
+                economy2penang()
+            else:
+                print("-----ERROR-----")
+                return economy2penang()
+        else:
+            print("-----ERROR-----")
+            return economy2penang()
+    elif chse == 2:
+        print("-"*30)
+        ferryID_202_e()
+        if 0 in ferry_202_e:
+            chse_1 = str(input("Buy Ticket? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                ferry_202_e[37] = 1
+                trip = "LANGKAWI---->PENANG"
+                trip_class = "Economy"
+                trip_seat = "E38"
+                trip_ferry = "202 | TIME: 02:00PM"
+                user()
+            elif chse_1 == "NO":
+                economy2penang()
+            else:
+                print("-----ERROR-----")
+                return economy2penang()
+        elif 0 not in ferry_202_e:
+            print("Sorry la there is no space available Next trip after 3 hour")
+            chse_1 = str(input("Change Time? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                des_time2penang()
+            elif chse_1 == "NO":
+                economy2penang()
+            else:
+                print("-----ERROR-----")
+                return economy2penang()
+        else:
+            print("-----ERROR-----")
+            return economy2penang()
+    elif chse == 3:
+        print("-"*30)
+        ferryID_203_e()
+        if 0 in ferry_203_e:
+            chse_1 = str(input("Buy Ticket? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                ferry_203_e[32] = 1
+                trip = "LANGKAWI---->PENANG"
+                trip_class = "Economy"
+                trip_seat = "E33"
+                trip_ferry = "203 | TIME: 05:00PM"
+                user()
+            elif chse_1 == "NO":
+                economy2penang()
+            else:
+                print("-----ERROR-----")
+                return business2penang()
+        elif 0 not in ferry_203_e:
+            print("Sorry la there is no space available Next trip after 3 hour")
+            chse_1 = str(input("Change Time? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                des_time2penang()
+            elif chse_1 == "NO":
+                economy2penang()
+            else:
+                print("-----ERROR-----")
+                return economy2penang()
+        else:
+            print("-----ERROR-----")
+            return economy2penang()
+    elif chse == 4:
+        print("-"*30)
+        ferryID_204_e()
+        if 0 in ferry_204_e:
+            chse_1 = str(input("Buy Ticket? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                ferry_204_e[39] = 1
+                trip = "LANGKAWI---->PENANG"
+                trip_class = "Economy"
+                trip_seat = "E40"
+                trip_ferry = "204 | TIME: 08:00PM"
+                user()
+            elif chse_1 == "NO":
+                economy2penang()
+            else:
+                print("-----ERROR-----")
+                return economy2penang()
+        elif 0 not in ferry_204_e:
+            print("Sorry la there is no space available Next trip after 3 hour")
+            chse_1 = str(input("Change Time? YES/NO:- ").upper())
+            if chse_1 == "YES":
+                des_time2penang()
+            elif chse_1 == "NO":
+                economy2penang()
+            else:
+                print("-----ERROR-----")
+                return economy2penang()
+        else:
+            print("-----ERROR-----")
+            return economy2penang()
+    elif chse == 5:
+        main_menu()
+    else:
+        print("-----ERROR-----")
+        return economy2penang()
 
+def user():
+    print("-"*30)
+    global f_name
+    global l_name
+    f_name = str(input("Enter Your First Name:- ").title())
+    l_name = str(input("Enter Your Last Name:- ").title())
+    purchase()
 
+def purchase():
+    print("\n"*20)
+    print("*"*17, "Thank You", "*"*17)
+    print("* Destination: ", trip)
+    print("*"*45)
+    print("* FERRY ID: ", trip_ferry, date)
+    print("* Class:    ", trip_class)
+    print("* Name :    ", f_name, l_name)
+    print("*"*45)
+    print("\n--[1] Back to Main Menu--[2] Quite--")
+    ticket()
+    ch2 = int(input("Enter:- "))
+    if ch2 == 1:
+        main_menu()
+    elif ch2 == 2:
+        quit()
+    else:
+        quit()
 
+def ticket():
+    file = open("Ticket.txt", "w")
+    print("*"*17, "Thank You", "*"*17, file = open("Ticket.txt", "a"))
+    print("* Destination: ", trip, file = open("Ticket.txt", "a"))
+    print("*"*45, file = open("Ticket.txt", "a"))
+    print("* FERRY ID: ", trip_ferry, date, file = open("Ticket.txt", "a"))
+    print("* Class:    ", trip_class, file = open("Ticket.txt", "a"))
+    print("* Name :    ", f_name, l_name, file = open("Ticket.txt", "a"))
+    print("*"*45, file = open("Ticket.txt", "a"))
+    file.close()
 
+def fer_ID():
+    print("*"*29)
+    print("*     PENANG ---> LANGKAWI    ")
+    print("-"*29)
+    print("Ferry ID: 101 -------- 10:00AM")
+    print("Ferry ID: 102 -------- 01:00PM")
+    print("Ferry ID: 103 -------- 04:00PM")
+    print("Ferry ID: 104 -------- 07:00PM")
+    print("*"*29)
+    print("*     LANGKAWI ---> PENANG    ")
+    print("-"*29)
+    print("Ferry ID: 201 -------- 11:00PM")
+    print("Ferry ID: 202 -------- 02:00PM")
+    print("Ferry ID: 203 -------- 05:00PM")
+    print("Ferry ID: 204 -------- 08:00PM")
+    print("*"*29)
+    type = input("TYPE ANY BUTTON TO BACK MAIN MENU:- ")
+    if type == "":
+        main_menu()
+    else:
+        main_menu()
 
+def destination():
+    print("-"*30)
+    print("*"*30)
+    print("*     CHOOSE DESTINATION     *")
+    print("*"*30)
+    print("[1] Penang -----> Langkawi")
+    print("[2] Langkawi -----> Penang")
+    print("[3] Back\n")
 
-6
+def des_time2lang():
+    print("\nChoose Time:")
+    print("\n[1]-10:00AM\n[2]-01:00PM\n[3]-04:OOPM\n[4]-07:00PM\n[5]-Back to Main Menu")
 
+def des_time2penang():
+    print("\nChoose Time:")
+    print("\n[1]-11:00AM\n[2]-02:00PM\n[3]-05:OOPM\n[4]-08:00PM\n[5]-Back to Main Menu")
 
+def arrangement():
+    destination()
+    way_1 = int(input("\nCheck Your Destination:- "))
+    if way_1 == 1:
+        des_time2lang()
+        ch1 = int(input("\nChoose Time:- "))
+        if ch1 == 1:
+            ferryID_101()
+            main_menu()
+        elif ch1 == 2:
+            ferryID_102()
+            main_menu()
+        elif ch1 == 3:
+            ferryID_103()
+            main_menu()
+        elif ch1 == 4:
+            ferryID_104()
+            main_menu()
+        elif ch1 == 5:
+            main_menu()
+        else:
+            print("Invalid Value")
+            return destination()
+    elif way_1 == 2:
+        des_time2penang()
+        ch1 = int(input("\nChoose Time: "))
+        if ch1 == 1:
+            ferryID_201()
+            main_menu()
+        elif ch1 == 2:
+            ferryID_202()
+            main_menu()
+        elif ch1 == 3:
+            ferryID_203()
+            main_menu()
+        elif ch1 == 4:
+            ferryID_204()
+            main_menu()
+        elif ch1 == 5:
+            main_menu()
+        else:
+            print("Invalid Value")
+            return destination()
+    else:
+        print("Invalid Value")
+        return arrangement()
 
+#----------------------FERRY ID FOR LANGKAWI----------------------------
+#FerryID 1:
+ferry_101_b = [1, 1, 1, 1, 1, 1, 1, 1, 1, 0]
+ferry_101_e =  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+def ferryID_101_b():
+    print("***********************************************************************")
+    print("*                     PENANG TO LANGKAWI                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 101                        Time: ", date, "     *")
+    print("***********************************************************************")
+    print("*     BUSINESS CLASS                                                  *")
+    print("***********************************************************************")
+    print("*     ",ferry_101_b[0], "     *     ",ferry_101_b[1], "     *     ",ferry_101_b[2], "     *     ",ferry_101_b[3], "     *     ",ferry_101_b[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_101_b[5], "     *     ",ferry_101_b[6], "     *     ",ferry_101_b[7], "     *     ",ferry_101_b[8], "     *     ",ferry_101_b[9], "     *")
+    print("***********************************************************************")
+def ferryID_101_e():
+    print("***********************************************************************")
+    print("*                     PENANG TO LANGKAWI                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 101                        Time: ", date, "     *")
+    print("***********************************************************************")
+    print("*     ECONOMY CLASS                                                   *")
+    print("***********************************************************************")
+    print("*     ",ferry_101_e[0], "     *     ",ferry_101_e[1], "     *     ",ferry_101_e[2], "     *     ",ferry_101_e[3], "     *     ",ferry_101_e[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_101_e[5], "     *     ",ferry_101_e[6], "     *     ",ferry_101_e[7], "     *     ",ferry_101_e[8], "     *     ",ferry_101_e[9], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_101_e[10], "     *     ",ferry_101_e[11], "     *     ",ferry_101_e[12], "     *     ",ferry_101_e[13], "     *     ",ferry_101_e[14], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_101_e[15], "     *     ",ferry_101_e[16], "     *     ",ferry_101_e[17], "     *     ",ferry_101_e[18], "     *     ",ferry_101_e[19], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_101_e[20], "     *     ",ferry_101_e[21], "     *     ",ferry_101_e[22], "     *     ",ferry_101_e[23], "     *     ",ferry_101_e[24], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_101_e[25], "     *     ",ferry_101_e[26], "     *     ",ferry_101_e[27], "     *     ",ferry_101_e[28], "     *     ",ferry_101_e[29], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_101_e[30], "     *     ",ferry_101_e[31], "     *     ",ferry_101_e[32], "     *     ",ferry_101_e[33], "     *     ",ferry_101_e[34], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_101_e[35], "     *     ",ferry_101_e[36], "     *     ",ferry_101_e[37], "     *     ",ferry_101_e[38], "     *     ",ferry_101_e[39], "     *")
+    print("***********************************************************************")
 
+def ferryID_101():
+    print("***********************************************************************")
+    print("*                     PENANG TO LANGKAWI                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 101                        Time: ", date, "     *")
+    print("***********************************************************************")
+    print("*     BUSINESS CLASS                                                  *")
+    print("***********************************************************************")
+    print("*     ",ferry_101_b[0], "     *     ",ferry_101_b[1], "     *     ",ferry_101_b[2], "     *     ",ferry_101_b[3], "     *     ",ferry_101_b[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_101_b[5], "     *     ",ferry_101_b[6], "     *     ",ferry_101_b[7], "     *     ",ferry_101_b[8], "     *     ",ferry_101_b[9], "     *")
+    print("***********************************************************************")
+    print("*     ECONOMY CLASS                                                   *")
+    print("***********************************************************************")
+    print("*     ",ferry_101_e[0], "     *     ",ferry_101_e[1], "     *     ",ferry_101_e[2], "     *     ",ferry_101_e[3], "     *     ",ferry_101_e[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_101_e[5], "     *     ",ferry_101_e[6], "     *     ",ferry_101_e[7], "     *     ",ferry_101_e[8], "     *     ",ferry_101_e[9], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_101_e[10], "     *     ",ferry_101_e[11], "     *     ",ferry_101_e[12], "     *     ",ferry_101_e[13], "     *     ",ferry_101_e[14], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_101_e[15], "     *     ",ferry_101_e[16], "     *     ",ferry_101_e[17], "     *     ",ferry_101_e[18], "     *     ",ferry_101_e[19], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_101_e[20], "     *     ",ferry_101_e[21], "     *     ",ferry_101_e[22], "     *     ",ferry_101_e[23], "     *     ",ferry_101_e[24], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_101_e[25], "     *     ",ferry_101_e[26], "     *     ",ferry_101_e[27], "     *     ",ferry_101_e[28], "     *     ",ferry_101_e[29], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_101_e[30], "     *     ",ferry_101_e[31], "     *     ",ferry_101_e[32], "     *     ",ferry_101_e[33], "     *     ",ferry_101_e[34], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_101_e[35], "     *     ",ferry_101_e[36], "     *     ",ferry_101_e[37], "     *     ",ferry_101_e[38], "     *     ",ferry_101_e[39], "     *")
+    print("***********************************************************************")
 
+#FerryID 2:
+ferry_102_b = [1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
+ferry_102_e =  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+def ferryID_102_b():
+    print("***********************************************************************")
+    print("*                     PENANG TO LANGKAWI                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 102                        Time: ", date, "     *")
+    print("***********************************************************************")
+    print("*     BUSINESS CLASS                                                  *")
+    print("***********************************************************************")
+    print("*     ",ferry_102_b[0], "     *     ",ferry_102_b[1], "     *     ",ferry_102_b[2], "     *     ",ferry_102_b[3], "     *     ",ferry_102_b[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_102_b[5], "     *     ",ferry_102_b[6], "     *     ",ferry_102_b[7], "     *     ",ferry_102_b[8], "     *     ",ferry_102_b[9], "     *")
+    print("***********************************************************************")
+def ferryID_102_e():
+    print("***********************************************************************")
+    print("*                     PENANG TO LANGKAWI                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 102                        Time: ", date, "     *")
+    print("***********************************************************************")
+    print("*     ECONOMY CLASS                                                   *")
+    print("***********************************************************************")
+    print("*     ",ferry_102_e[0], "     *     ",ferry_102_e[1], "     *     ",ferry_102_e[2], "     *     ",ferry_102_e[3], "     *     ",ferry_102_e[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_102_e[5], "     *     ",ferry_102_e[6], "     *     ",ferry_102_e[7], "     *     ",ferry_102_e[8], "     *     ",ferry_102_e[9], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_102_e[10], "     *     ",ferry_102_e[11], "     *     ",ferry_102_e[12], "     *     ",ferry_102_e[13], "     *     ",ferry_102_e[14], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_102_e[15], "     *     ",ferry_102_e[16], "     *     ",ferry_102_e[17], "     *     ",ferry_102_e[18], "     *     ",ferry_102_e[19], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_102_e[20], "     *     ",ferry_102_e[21], "     *     ",ferry_102_e[22], "     *     ",ferry_102_e[23], "     *     ",ferry_102_e[24], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_102_e[25], "     *     ",ferry_102_e[26], "     *     ",ferry_102_e[27], "     *     ",ferry_102_e[28], "     *     ",ferry_102_e[29], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_102_e[30], "     *     ",ferry_102_e[31], "     *     ",ferry_102_e[32], "     *     ",ferry_102_e[33], "     *     ",ferry_102_e[34], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_102_e[35], "     *     ",ferry_102_e[36], "     *     ",ferry_102_e[37], "     *     ",ferry_102_e[38], "     *     ",ferry_102_e[39], "     *")
+    print("***********************************************************************")
 
+def ferryID_102():
+    print("***********************************************************************")
+    print("*                     PENANG TO LANGKAWI                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 102                        Date: ", date, "     *")
+    print("***********************************************************************")
+    print("*     BUSINESS CLASS                                                  *")
+    print("***********************************************************************")
+    print("*     ",ferry_102_b[0], "     *     ",ferry_102_b[1], "     *     ",ferry_102_b[2], "     *     ",ferry_102_b[3], "     *     ",ferry_102_b[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_102_b[5], "     *     ",ferry_102_b[6], "     *     ",ferry_102_b[7], "     *     ",ferry_102_b[8], "     *     ",ferry_102_b[9], "     *")
+    print("***********************************************************************")
+    print("*     ECONOMY CLASS                                                   *")
+    print("***********************************************************************")
+    print("*     ",ferry_102_e[0], "     *     ",ferry_102_e[1], "     *     ",ferry_102_e[2], "     *     ",ferry_102_e[3], "     *     ",ferry_102_e[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_102_e[5], "     *     ",ferry_102_e[6], "     *     ",ferry_102_e[7], "     *     ",ferry_102_e[8], "     *     ",ferry_102_e[9], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_102_e[10], "     *     ",ferry_102_e[11], "     *     ",ferry_102_e[12], "     *     ",ferry_102_e[13], "     *     ",ferry_102_e[14], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_102_e[15], "     *     ",ferry_102_e[16], "     *     ",ferry_102_e[17], "     *     ",ferry_102_e[18], "     *     ",ferry_102_e[19], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_102_e[20], "     *     ",ferry_102_e[21], "     *     ",ferry_102_e[22], "     *     ",ferry_102_e[23], "     *     ",ferry_102_e[24], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_102_e[25], "     *     ",ferry_102_e[26], "     *     ",ferry_102_e[27], "     *     ",ferry_102_e[28], "     *     ",ferry_102_e[29], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_102_e[30], "     *     ",ferry_102_e[31], "     *     ",ferry_102_e[32], "     *     ",ferry_102_e[33], "     *     ",ferry_102_e[34], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_102_e[35], "     *     ",ferry_102_e[36], "     *     ",ferry_102_e[37], "     *     ",ferry_102_e[38], "     *     ",ferry_102_e[39], "     *")
+    print("***********************************************************************")
 
+#FerryID 3:
+ferry_103_b = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+ferry_103_e =  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+def ferryID_103_b():
+    print("***********************************************************************")
+    print("*                     PENANG TO LANGKAWI                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 103                        Date: ", date, "     *")
+    print("***********************************************************************")
+    print("*     BUSINESS CLASS                                                  *")
+    print("***********************************************************************")
+    print("*     ",ferry_103_b[0], "     *     ",ferry_103_b[1], "     *     ",ferry_103_b[2], "     *     ",ferry_103_b[3], "     *     ",ferry_103_b[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_103_b[5], "     *     ",ferry_103_b[6], "     *     ",ferry_103_b[7], "     *     ",ferry_103_b[8], "     *     ",ferry_103_b[9], "     *")
+    print("***********************************************************************")
+def ferryID_103_e():
+    print("***********************************************************************")
+    print("*                     PENANG TO LANGKAWI                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 103                        Date: ", date, "     *")
+    print("***********************************************************************")
+    print("*     ECONOMY CLASS                                                   *")
+    print("***********************************************************************")
+    print("*     ",ferry_103_e[0], "     *     ",ferry_103_e[1], "     *     ",ferry_103_e[2], "     *     ",ferry_103_e[3], "     *     ",ferry_103_e[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_103_e[5], "     *     ",ferry_103_e[6], "     *     ",ferry_103_e[7], "     *     ",ferry_103_e[8], "     *     ",ferry_103_e[9], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_103_e[10], "     *     ",ferry_103_e[11], "     *     ",ferry_103_e[12], "     *     ",ferry_103_e[13], "     *     ",ferry_103_e[14], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_103_e[15], "     *     ",ferry_103_e[16], "     *     ",ferry_103_e[17], "     *     ",ferry_103_e[18], "     *     ",ferry_103_e[19], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_103_e[20], "     *     ",ferry_103_e[21], "     *     ",ferry_103_e[22], "     *     ",ferry_103_e[23], "     *     ",ferry_103_e[24], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_103_e[25], "     *     ",ferry_103_e[26], "     *     ",ferry_103_e[27], "     *     ",ferry_103_e[28], "     *     ",ferry_103_e[29], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_103_e[30], "     *     ",ferry_103_e[31], "     *     ",ferry_103_e[32], "     *     ",ferry_103_e[33], "     *     ",ferry_103_e[34], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_103_e[35], "     *     ",ferry_103_e[36], "     *     ",ferry_103_e[37], "     *     ",ferry_103_e[38], "     *     ",ferry_103_e[39], "     *")
+    print("***********************************************************************")
 
-root.mainloop()
+def ferryID_103():
+    print("***********************************************************************")
+    print("*                     PENANG TO LANGKAWI                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 103                        Date: ", date, "     *")
+    print("***********************************************************************")
+    print("*     BUSINESS CLASS                                                  *")
+    print("***********************************************************************")
+    print("*     ",ferry_103_b[0], "     *     ",ferry_103_b[1], "     *     ",ferry_103_b[2], "     *     ",ferry_103_b[3], "     *     ",ferry_103_b[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_103_b[5], "     *     ",ferry_103_b[6], "     *     ",ferry_103_b[7], "     *     ",ferry_103_b[8], "     *     ",ferry_103_b[9], "     *")
+    print("***********************************************************************")
+    print("*     ECONOMY CLASS                                                   *")
+    print("***********************************************************************")
+    print("*     ",ferry_103_e[0], "     *     ",ferry_103_e[1], "     *     ",ferry_103_e[2], "     *     ",ferry_103_e[3], "     *     ",ferry_103_e[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_103_e[5], "     *     ",ferry_103_e[6], "     *     ",ferry_103_e[7], "     *     ",ferry_103_e[8], "     *     ",ferry_103_e[9], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_103_e[10], "     *     ",ferry_103_e[11], "     *     ",ferry_103_e[12], "     *     ",ferry_103_e[13], "     *     ",ferry_103_e[14], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_103_e[15], "     *     ",ferry_103_e[16], "     *     ",ferry_103_e[17], "     *     ",ferry_103_e[18], "     *     ",ferry_103_e[19], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_103_e[20], "     *     ",ferry_103_e[21], "     *     ",ferry_103_e[22], "     *     ",ferry_103_e[23], "     *     ",ferry_103_e[24], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_103_e[25], "     *     ",ferry_103_e[26], "     *     ",ferry_103_e[27], "     *     ",ferry_103_e[28], "     *     ",ferry_103_e[29], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_103_e[30], "     *     ",ferry_103_e[31], "     *     ",ferry_103_e[32], "     *     ",ferry_103_e[33], "     *     ",ferry_103_e[34], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_103_e[35], "     *     ",ferry_103_e[36], "     *     ",ferry_103_e[37], "     *     ",ferry_103_e[38], "     *     ",ferry_103_e[39], "     *")
+    print("***********************************************************************")
+
+#FerryID 4:
+ferry_104_b = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+ferry_104_e =  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+def ferryID_104_b():
+    print("***********************************************************************")
+    print("*                     PENANG TO LANGKAWI                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 104                        Date: ", date, "     *")
+    print("***********************************************************************")
+    print("*     BUSINESS CLASS                                                  *")
+    print("***********************************************************************")
+    print("*     ",ferry_104_b[0], "     *     ",ferry_104_b[1], "     *     ",ferry_104_b[2], "     *     ",ferry_104_b[3], "     *     ",ferry_104_b[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_104_b[5], "     *     ",ferry_104_b[6], "     *     ",ferry_104_b[7], "     *     ",ferry_104_b[8], "     *     ",ferry_104_b[9], "     *")
+    print("***********************************************************************")
+def ferryID_104_e():
+    print("***********************************************************************")
+    print("*                     PENANG TO LANGKAWI                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 104                        Date: ", date, "     *")
+    print("***********************************************************************")
+    print("*     ECONOMY CLASS                                                   *")
+    print("***********************************************************************")
+    print("*     ",ferry_104_e[0], "     *     ",ferry_104_e[1], "     *     ",ferry_104_e[2], "     *     ",ferry_104_e[3], "     *     ",ferry_104_e[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_104_e[5], "     *     ",ferry_104_e[6], "     *     ",ferry_104_e[7], "     *     ",ferry_104_e[8], "     *     ",ferry_104_e[9], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_104_e[10], "     *     ",ferry_104_e[11], "     *     ",ferry_104_e[12], "     *     ",ferry_104_e[13], "     *     ",ferry_104_e[14], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_104_e[15], "     *     ",ferry_104_e[16], "     *     ",ferry_104_e[17], "     *     ",ferry_104_e[18], "     *     ",ferry_104_e[19], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_104_e[20], "     *     ",ferry_104_e[21], "     *     ",ferry_104_e[22], "     *     ",ferry_104_e[23], "     *     ",ferry_104_e[24], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_104_e[25], "     *     ",ferry_104_e[26], "     *     ",ferry_104_e[27], "     *     ",ferry_104_e[28], "     *     ",ferry_104_e[29], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_104_e[30], "     *     ",ferry_104_e[31], "     *     ",ferry_104_e[32], "     *     ",ferry_104_e[33], "     *     ",ferry_104_e[34], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_104_e[35], "     *     ",ferry_104_e[36], "     *     ",ferry_104_e[37], "     *     ",ferry_104_e[38], "     *     ",ferry_104_e[39], "     *")
+    print("***********************************************************************")
+
+def ferryID_104():
+    print("***********************************************************************")
+    print("*                     PENANG TO LANGKAWI                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 104                        Date: ", date, "     *")
+    print("***********************************************************************")
+    print("*     BUSINESS CLASS                                                  *")
+    print("***********************************************************************")
+    print("*     ",ferry_104_b[0], "     *     ",ferry_104_b[1], "     *     ",ferry_104_b[2], "     *     ",ferry_104_b[3], "     *     ",ferry_104_b[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_104_b[5], "     *     ",ferry_104_b[6], "     *     ",ferry_104_b[7], "     *     ",ferry_104_b[8], "     *     ",ferry_104_b[9], "     *")
+    print("***********************************************************************")
+    print("*     ECONOMY CLASS                                                   *")
+    print("***********************************************************************")
+    print("*     ",ferry_104_e[0], "     *     ",ferry_104_e[1], "     *     ",ferry_104_e[2], "     *     ",ferry_104_e[3], "     *     ",ferry_104_e[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_104_e[5], "     *     ",ferry_104_e[6], "     *     ",ferry_104_e[7], "     *     ",ferry_104_e[8], "     *     ",ferry_104_e[9], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_104_e[10], "     *     ",ferry_104_e[11], "     *     ",ferry_104_e[12], "     *     ",ferry_104_e[13], "     *     ",ferry_104_e[14], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_104_e[15], "     *     ",ferry_104_e[16], "     *     ",ferry_104_e[17], "     *     ",ferry_104_e[18], "     *     ",ferry_104_e[19], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_104_e[20], "     *     ",ferry_104_e[21], "     *     ",ferry_104_e[22], "     *     ",ferry_104_e[23], "     *     ",ferry_104_e[24], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_104_e[25], "     *     ",ferry_104_e[26], "     *     ",ferry_104_e[27], "     *     ",ferry_104_e[28], "     *     ",ferry_104_e[29], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_104_e[30], "     *     ",ferry_104_e[31], "     *     ",ferry_104_e[32], "     *     ",ferry_104_e[33], "     *     ",ferry_104_e[34], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_104_e[35], "     *     ",ferry_104_e[36], "     *     ",ferry_104_e[37], "     *     ",ferry_104_e[38], "     *     ",ferry_104_e[39], "     *")
+    print("***********************************************************************")
+
+#----------------------FERRY ID FOR PENANG----------------------------
+#FerryID 1:
+ferry_201_b = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+ferry_201_e =  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+def ferryID_201_b():
+    print("***********************************************************************")
+    print("*                     LANGKAWI TO PENANG                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 201                        Date: ", date, "     *")
+    print("***********************************************************************")
+    print("*     BUSINESS CLASS                                                  *")
+    print("***********************************************************************")
+    print("*     ",ferry_201_b[0], "     *     ",ferry_201_b[1], "     *     ",ferry_201_b[2], "     *     ",ferry_201_b[3], "     *     ",ferry_201_b[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_201_b[5], "     *     ",ferry_201_b[6], "     *     ",ferry_201_b[7], "     *     ",ferry_201_b[8], "     *     ",ferry_201_b[9], "     *")
+    print("***********************************************************************")
+def ferryID_201_e():
+    print("***********************************************************************")
+    print("*                     LANGKAWI TO PENANG                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 201                        Date: ", date, "     *")
+    print("***********************************************************************")
+    print("*     ECONOMY CLASS                                                   *")
+    print("***********************************************************************")
+    print("*     ",ferry_201_e[0], "     *     ",ferry_201_e[1], "     *     ",ferry_201_e[2], "     *     ",ferry_201_e[3], "     *     ",ferry_201_e[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_201_e[5], "     *     ",ferry_201_e[6], "     *     ",ferry_201_e[7], "     *     ",ferry_201_e[8], "     *     ",ferry_201_e[9], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_201_e[10], "     *     ",ferry_201_e[11], "     *     ",ferry_201_e[12], "     *     ",ferry_201_e[13], "     *     ",ferry_201_e[14], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_201_e[15], "     *     ",ferry_201_e[16], "     *     ",ferry_201_e[17], "     *     ",ferry_201_e[18], "     *     ",ferry_201_e[19], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_201_e[20], "     *     ",ferry_201_e[21], "     *     ",ferry_201_e[22], "     *     ",ferry_201_e[23], "     *     ",ferry_201_e[24], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_201_e[25], "     *     ",ferry_201_e[26], "     *     ",ferry_201_e[27], "     *     ",ferry_201_e[28], "     *     ",ferry_201_e[29], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_201_e[30], "     *     ",ferry_201_e[31], "     *     ",ferry_201_e[32], "     *     ",ferry_201_e[33], "     *     ",ferry_201_e[34], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_201_e[35], "     *     ",ferry_201_e[36], "     *     ",ferry_201_e[37], "     *     ",ferry_201_e[38], "     *     ",ferry_201_e[39], "     *")
+    print("***********************************************************************")
+
+def ferryID_201():
+    print("***********************************************************************")
+    print("*                     LANGKAWI TO PENANG                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 201                        Date: ", date, "     *")
+    print("***********************************************************************")
+    print("*     BUSINESS CLASS                                                  *")
+    print("***********************************************************************")
+    print("*     ",ferry_201_b[0], "     *     ",ferry_201_b[1], "     *     ",ferry_201_b[2], "     *     ",ferry_201_b[3], "     *     ",ferry_201_b[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_201_b[5], "     *     ",ferry_201_b[6], "     *     ",ferry_201_b[7], "     *     ",ferry_201_b[8], "     *     ",ferry_201_b[9], "     *")
+    print("***********************************************************************")
+    print("*     ECONOMY CLASS                                                   *")
+    print("***********************************************************************")
+    print("*     ",ferry_201_e[0], "     *     ",ferry_201_e[1], "     *     ",ferry_201_e[2], "     *     ",ferry_201_e[3], "     *     ",ferry_201_e[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_201_e[5], "     *     ",ferry_201_e[6], "     *     ",ferry_201_e[7], "     *     ",ferry_201_e[8], "     *     ",ferry_201_e[9], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_201_e[10], "     *     ",ferry_201_e[11], "     *     ",ferry_201_e[12], "     *     ",ferry_201_e[13], "     *     ",ferry_201_e[14], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_201_e[15], "     *     ",ferry_201_e[16], "     *     ",ferry_201_e[17], "     *     ",ferry_201_e[18], "     *     ",ferry_201_e[19], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_201_e[20], "     *     ",ferry_201_e[21], "     *     ",ferry_201_e[22], "     *     ",ferry_201_e[23], "     *     ",ferry_201_e[24], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_201_e[25], "     *     ",ferry_201_e[26], "     *     ",ferry_201_e[27], "     *     ",ferry_201_e[28], "     *     ",ferry_201_e[29], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_201_e[30], "     *     ",ferry_201_e[31], "     *     ",ferry_201_e[32], "     *     ",ferry_201_e[33], "     *     ",ferry_201_e[34], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_201_e[35], "     *     ",ferry_201_e[36], "     *     ",ferry_201_e[37], "     *     ",ferry_201_e[38], "     *     ",ferry_201_e[39], "     *")
+    print("***********************************************************************")
+
+#FerryID 2:
+ferry_202_b = [1, 1, 1, 1, 1, 1, 0, 0, 0, 0]
+ferry_202_e =  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+def ferryID_202_b():
+    print("***********************************************************************")
+    print("*                     LANGKAWI TO PENANG                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 202                        Date: ", date, "     *")
+    print("***********************************************************************")
+    print("*     BUSINESS CLASS                                                  *")
+    print("***********************************************************************")
+    print("*     ",ferry_202_b[0], "     *     ",ferry_202_b[1], "     *     ",ferry_202_b[2], "     *     ",ferry_202_b[3], "     *     ",ferry_202_b[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_202_b[5], "     *     ",ferry_202_b[6], "     *     ",ferry_202_b[7], "     *     ",ferry_202_b[8], "     *     ",ferry_202_b[9], "     *")
+    print("***********************************************************************")
+
+def ferryID_202_e():
+    print("***********************************************************************")
+    print("*                     LANGKAWI TO PENANG                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 202                        Date: ", date, "     *")
+    print("***********************************************************************")
+    print("*     ECONOMY CLASS                                                   *")
+    print("***********************************************************************")
+    print("*     ",ferry_202_e[0], "     *     ",ferry_202_e[1], "     *     ",ferry_202_e[2], "     *     ",ferry_202_e[3], "     *     ",ferry_202_e[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_202_e[5], "     *     ",ferry_202_e[6], "     *     ",ferry_202_e[7], "     *     ",ferry_202_e[8], "     *     ",ferry_202_e[9], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_202_e[10], "     *     ",ferry_202_e[11], "     *     ",ferry_202_e[12], "     *     ",ferry_202_e[13], "     *     ",ferry_202_e[14], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_202_e[15], "     *     ",ferry_202_e[16], "     *     ",ferry_202_e[17], "     *     ",ferry_202_e[18], "     *     ",ferry_202_e[19], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_202_e[20], "     *     ",ferry_202_e[21], "     *     ",ferry_202_e[22], "     *     ",ferry_202_e[23], "     *     ",ferry_202_e[24], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_202_e[25], "     *     ",ferry_202_e[26], "     *     ",ferry_202_e[27], "     *     ",ferry_202_e[28], "     *     ",ferry_202_e[29], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_202_e[30], "     *     ",ferry_202_e[31], "     *     ",ferry_202_e[32], "     *     ",ferry_202_e[33], "     *     ",ferry_202_e[34], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_202_e[35], "     *     ",ferry_202_e[36], "     *     ",ferry_202_e[37], "     *     ",ferry_202_e[38], "     *     ",ferry_202_e[39], "     *")
+    print("***********************************************************************")
+
+def ferryID_202():
+    print("***********************************************************************")
+    print("*                     LANGKAWI TO PENANG                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 202                        Date: ", date, "     *")
+    print("***********************************************************************")
+    print("*     BUSINESS CLASS                                                  *")
+    print("***********************************************************************")
+    print("*     ",ferry_202_b[0], "     *     ",ferry_202_b[1], "     *     ",ferry_202_b[2], "     *     ",ferry_202_b[3], "     *     ",ferry_202_b[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_202_b[5], "     *     ",ferry_202_b[6], "     *     ",ferry_202_b[7], "     *     ",ferry_202_b[8], "     *     ",ferry_202_b[9], "     *")
+    print("***********************************************************************")
+    print("*     ECONOMY CLASS                                                   *")
+    print("***********************************************************************")
+    print("*     ",ferry_202_e[0], "     *     ",ferry_202_e[1], "     *     ",ferry_202_e[2], "     *     ",ferry_202_e[3], "     *     ",ferry_202_e[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_202_e[5], "     *     ",ferry_202_e[6], "     *     ",ferry_202_e[7], "     *     ",ferry_202_e[8], "     *     ",ferry_202_e[9], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_202_e[10], "     *     ",ferry_202_e[11], "     *     ",ferry_202_e[12], "     *     ",ferry_202_e[13], "     *     ",ferry_202_e[14], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_202_e[15], "     *     ",ferry_202_e[16], "     *     ",ferry_202_e[17], "     *     ",ferry_202_e[18], "     *     ",ferry_202_e[19], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_202_e[20], "     *     ",ferry_202_e[21], "     *     ",ferry_202_e[22], "     *     ",ferry_202_e[23], "     *     ",ferry_202_e[24], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_202_e[25], "     *     ",ferry_202_e[26], "     *     ",ferry_202_e[27], "     *     ",ferry_202_e[28], "     *     ",ferry_202_e[29], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_202_e[30], "     *     ",ferry_202_e[31], "     *     ",ferry_202_e[32], "     *     ",ferry_202_e[33], "     *     ",ferry_202_e[34], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_202_e[35], "     *     ",ferry_202_e[36], "     *     ",ferry_202_e[37], "     *     ",ferry_202_e[38], "     *     ",ferry_202_e[39], "     *")
+    print("***********************************************************************")
+
+#FerryID 3:
+ferry_203_b = [1, 1, 1, 1, 0, 0, 0, 0, 0, 0]
+ferry_203_e =  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+def ferryID_203_b():
+    print("***********************************************************************")
+    print("*                     LANGKAWI TO PENANG                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 203                        Date: ", date, "     *")
+    print("***********************************************************************")
+    print("*     BUSINESS CLASS                                                  *")
+    print("***********************************************************************")
+    print("*     ",ferry_203_b[0], "     *     ",ferry_203_b[1], "     *     ",ferry_203_b[2], "     *     ",ferry_203_b[3], "     *     ",ferry_203_b[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_203_b[5], "     *     ",ferry_203_b[6], "     *     ",ferry_203_b[7], "     *     ",ferry_203_b[8], "     *     ",ferry_203_b[9], "     *")
+    print("***********************************************************************")
+
+def ferryID_203_e():
+    print("***********************************************************************")
+    print("*                     LANGKAWI TO PENANG                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 203                        Date: ", date, "     *")
+    print("***********************************************************************")
+    print("*     ECONOMY CLASS                                                   *")
+    print("***********************************************************************")
+    print("*     ",ferry_203_e[0], "     *     ",ferry_203_e[1], "     *     ",ferry_203_e[2], "     *     ",ferry_203_e[3], "     *     ",ferry_203_e[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_203_e[5], "     *     ",ferry_203_e[6], "     *     ",ferry_203_e[7], "     *     ",ferry_203_e[8], "     *     ",ferry_203_e[9], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_203_e[10], "     *     ",ferry_203_e[11], "     *     ",ferry_203_e[12], "     *     ",ferry_203_e[13], "     *     ",ferry_203_e[14], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_203_e[15], "     *     ",ferry_203_e[16], "     *     ",ferry_203_e[17], "     *     ",ferry_203_e[18], "     *     ",ferry_203_e[19], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_203_e[20], "     *     ",ferry_203_e[21], "     *     ",ferry_203_e[22], "     *     ",ferry_203_e[23], "     *     ",ferry_203_e[24], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_203_e[25], "     *     ",ferry_203_e[26], "     *     ",ferry_203_e[27], "     *     ",ferry_203_e[28], "     *     ",ferry_203_e[29], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_203_e[30], "     *     ",ferry_203_e[31], "     *     ",ferry_203_e[32], "     *     ",ferry_203_e[33], "     *     ",ferry_203_e[34], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_203_e[35], "     *     ",ferry_203_e[36], "     *     ",ferry_203_e[37], "     *     ",ferry_203_e[38], "     *     ",ferry_203_e[39], "     *")
+    print("***********************************************************************")
+
+def ferryID_203():
+    print("***********************************************************************")
+    print("*                     LANGKAWI TO PENANG                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 203                        Date: ", date, "     *")
+    print("***********************************************************************")
+    print("*     BUSINESS CLASS                                                  *")
+    print("***********************************************************************")
+    print("*     ",ferry_203_b[0], "     *     ",ferry_203_b[1], "     *     ",ferry_203_b[2], "     *     ",ferry_203_b[3], "     *     ",ferry_203_b[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_203_b[5], "     *     ",ferry_203_b[6], "     *     ",ferry_203_b[7], "     *     ",ferry_203_b[8], "     *     ",ferry_203_b[9], "     *")
+    print("***********************************************************************")
+    print("*     ECONOMY CLASS                                                   *")
+    print("***********************************************************************")
+    print("*     ",ferry_203_e[0], "     *     ",ferry_203_e[1], "     *     ",ferry_203_e[2], "     *     ",ferry_203_e[3], "     *     ",ferry_203_e[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_203_e[5], "     *     ",ferry_203_e[6], "     *     ",ferry_203_e[7], "     *     ",ferry_203_e[8], "     *     ",ferry_203_e[9], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_203_e[10], "     *     ",ferry_203_e[11], "     *     ",ferry_203_e[12], "     *     ",ferry_203_e[13], "     *     ",ferry_203_e[14], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_203_e[15], "     *     ",ferry_203_e[16], "     *     ",ferry_203_e[17], "     *     ",ferry_203_e[18], "     *     ",ferry_203_e[19], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_203_e[20], "     *     ",ferry_203_e[21], "     *     ",ferry_203_e[22], "     *     ",ferry_203_e[23], "     *     ",ferry_203_e[24], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_203_e[25], "     *     ",ferry_203_e[26], "     *     ",ferry_203_e[27], "     *     ",ferry_203_e[28], "     *     ",ferry_203_e[29], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_203_e[30], "     *     ",ferry_203_e[31], "     *     ",ferry_203_e[32], "     *     ",ferry_203_e[33], "     *     ",ferry_203_e[34], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_203_e[35], "     *     ",ferry_203_e[36], "     *     ",ferry_203_e[37], "     *     ",ferry_203_e[38], "     *     ",ferry_203_e[39], "     *")
+    print("***********************************************************************")
+
+#FerryID 4:
+ferry_204_b = [1, 1, 1, 1, 1, 0, 0, 0, 0, 0]
+ferry_204_e =  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+def ferryID_204_b():
+    print("***********************************************************************")
+    print("*                     LANGKAWI TO PENANG                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 204                        Date: ", date, "     *")
+    print("***********************************************************************")
+    print("*     BUSINESS CLASS                                                  *")
+    print("***********************************************************************")
+    print("*     ",ferry_204_b[0], "     *     ",ferry_204_b[1], "     *     ",ferry_204_b[2], "     *     ",ferry_204_b[3], "     *     ",ferry_204_b[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_204_b[5], "     *     ",ferry_204_b[6], "     *     ",ferry_204_b[7], "     *     ",ferry_204_b[8], "     *     ",ferry_204_b[9], "     *")
+    print("***********************************************************************")
+
+def ferryID_204_e():
+    print("***********************************************************************")
+    print("*                     LANGKAWI TO PENANG                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 204                        Date: ", date, "     *")
+    print("***********************************************************************")
+    print("*     ECONOMY CLASS                                                   *")
+    print("***********************************************************************")
+    print("*     ",ferry_204_e[0], "     *     ",ferry_204_e[1], "     *     ",ferry_204_e[2], "     *     ",ferry_204_e[3], "     *     ",ferry_204_e[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_204_e[5], "     *     ",ferry_204_e[6], "     *     ",ferry_204_e[7], "     *     ",ferry_204_e[8], "     *     ",ferry_204_e[9], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_204_e[10], "     *     ",ferry_204_e[11], "     *     ",ferry_204_e[12], "     *     ",ferry_204_e[13], "     *     ",ferry_204_e[14], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_204_e[15], "     *     ",ferry_204_e[16], "     *     ",ferry_204_e[17], "     *     ",ferry_204_e[18], "     *     ",ferry_204_e[19], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_204_e[20], "     *     ",ferry_204_e[21], "     *     ",ferry_204_e[22], "     *     ",ferry_204_e[23], "     *     ",ferry_204_e[24], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_204_e[25], "     *     ",ferry_204_e[26], "     *     ",ferry_204_e[27], "     *     ",ferry_204_e[28], "     *     ",ferry_204_e[29], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_204_e[30], "     *     ",ferry_204_e[31], "     *     ",ferry_204_e[32], "     *     ",ferry_204_e[33], "     *     ",ferry_204_e[34], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_204_e[35], "     *     ",ferry_204_e[36], "     *     ",ferry_204_e[37], "     *     ",ferry_204_e[38], "     *     ",ferry_204_e[39], "     *")
+    print("***********************************************************************")
+
+def ferryID_204():
+    print("***********************************************************************")
+    print("*                     LANGKAWI TO PENANG                              *")
+    print("***********************************************************************")
+    print("*     Ferry ID: 204                        Date: ", date, "     *")
+    print("***********************************************************************")
+    print("*     BUSINESS CLASS                                                  *")
+    print("***********************************************************************")
+    print("*     ",ferry_204_b[0], "     *     ",ferry_204_b[1], "     *     ",ferry_204_b[2], "     *     ",ferry_204_b[3], "     *     ",ferry_204_b[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_204_b[5], "     *     ",ferry_204_b[6], "     *     ",ferry_204_b[7], "     *     ",ferry_204_b[8], "     *     ",ferry_204_b[9], "     *")
+    print("***********************************************************************")
+    print("*     ECONOMY CLASS                                                   *")
+    print("***********************************************************************")
+    print("*     ",ferry_204_e[0], "     *     ",ferry_204_e[1], "     *     ",ferry_204_e[2], "     *     ",ferry_204_e[3], "     *     ",ferry_204_e[4], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_204_e[5], "     *     ",ferry_204_e[6], "     *     ",ferry_204_e[7], "     *     ",ferry_204_e[8], "     *     ",ferry_204_e[9], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_204_e[10], "     *     ",ferry_204_e[11], "     *     ",ferry_204_e[12], "     *     ",ferry_204_e[13], "     *     ",ferry_204_e[14], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_204_e[15], "     *     ",ferry_204_e[16], "     *     ",ferry_204_e[17], "     *     ",ferry_204_e[18], "     *     ",ferry_204_e[19], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_204_e[20], "     *     ",ferry_204_e[21], "     *     ",ferry_204_e[22], "     *     ",ferry_204_e[23], "     *     ",ferry_204_e[24], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_204_e[25], "     *     ",ferry_204_e[26], "     *     ",ferry_204_e[27], "     *     ",ferry_204_e[28], "     *     ",ferry_204_e[29], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_204_e[30], "     *     ",ferry_204_e[31], "     *     ",ferry_204_e[32], "     *     ",ferry_204_e[33], "     *     ",ferry_204_e[34], "     *")
+    print("***********************************************************************")
+    print("*     ",ferry_204_e[35], "     *     ",ferry_204_e[36], "     *     ",ferry_204_e[37], "     *     ",ferry_204_e[38], "     *     ",ferry_204_e[39], "     *")
+    print("***********************************************************************")
+
+main_menu()
